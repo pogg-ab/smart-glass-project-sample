@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Premium Dark Theme Colors -->
+    <color name="purple_200">#8B5CF6</color>
+    <color name="purple_500">#7C4DFF</color>
+    <color name="purple_700">#5E35B1</color>
+    <color name="teal_200">#00E5FF</color>
+    <color name="teal_700">#00B0FF</color>
+    <color name="black">#050508</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Custom gradients and glass colors -->
+    <color name="bg_dark_gradient_start">#0E0D1B</color>
+    <color name="bg_dark_gradient_end">#050508</color>
+    <color name="glass_card_tint">#0DFFFFFF</color>
+    <color name="glass_card_border">#1AFFFFFF</color>
+    <color name="accent_cyan">#00E5FF</color>
+
+    <!-- 主界面 -->
+    <color name="main_nv_select">#00E5FF</color>
+    <color name="main_nv_not_select">#66FFFFFF</color>
+    <color name="main_nv_bg">#0E0D1B</color>
+    <color name="main_nv_text_bg">#FFFFFF</color>
+    <color name="main_line_1">#1AFFFFFF</color>
+
+    <!-- title bar -->
+    <color name="title_bar_left">#FFFFFF</color>
+    <color name="title_bar_center">#FFFFFF</color>
+    <color name="title_bar_right">#00E5FF</color>
+    <color name="title_bar_line">#1AFFFFFF</color>
+</resources>

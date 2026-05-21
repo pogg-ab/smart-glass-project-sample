@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient_obsidian"
+    tools:context=".MainActivity">
+
+    <!-- ========================================== -->
+    <!-- 1. LAUNCH & SCAN STATE (DEFAULT)          -->
+    <!-- ========================================== -->
+    <LinearLayout
+        android:id="@+id/layout_launch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:visibility="visible">
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="32dp"
+            android:gravity="center">
+
+            <!-- ChipChip Recruiter Badge -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CHIPCHIP RECRUITMENT EVALUATION"
+                android:textColor="#B38B5CF6"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.2"
+                android:background="@drawable/bg_chipchip_badge"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="4dp"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CHIPCHIP EYEWEAR"
+                android:textColor="#FFFFFF"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.15" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HEYCYAN SMART GLASSES COMPANION"
+                android:textColor="#8000E5FF"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.2"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+        <!-- Circular Radar / Pulse Connect Button -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.2"
+            android:gravity="center">
+
+            <!-- Scanning Radar Ripples -->
+            <View
+                android:id="@+id/ripple_outer"
+                android:layout_width="220dp"
+                android:layout_height="220dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/btn_shutter"
+                android:backgroundTint="#0DF2FE"
+                android:alpha="0" />
+
+            <View
+                android:id="@+id/ripple_inner"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/btn_shutter"
+                android:backgroundTint="#1AF2FE"
+                android:alpha="0" />
+
+            <!-- Solid Glowing Connect Button -->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_action_connect"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_centerInParent="true"
+                android:background="@drawable/btn_connect_glow"
+                android:text="CONNECT"
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:elevation="8dp" />
+        </RelativeLayout>
+
+        <!-- Status indicator -->
+        <TextView
+            android:id="@+id/tv_scan_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tap Connect to search for smart glasses"
+            android:textColor="#B3FFFFFF"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Scanning progress (circular) -->
+        <ProgressBar
+            android:id="@+id/scan_progress_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="4dp"
+            android:indeterminate="true"
+            android:indeterminateTint="#00E5FF"
+            android:layout_marginBottom="24dp"
+            android:visibility="gone" />
+
+        <!-- Discovered devices section -->
+        <LinearLayout
+            android:id="@+id/layout_discovered_devices"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.2"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="DISCOVERED DEVICES"
+                android:textColor="#66FFFFFF"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.15"
+                android:layout_marginBottom="12dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_scanned_devices"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/recycleview_item_device" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- ========================================== -->
+    <!-- 2. CONNECTED VIEWFINDER STATE             -->
+    <!-- ========================================== -->
+    <LinearLayout
+        android:id="@+id/layout_connected"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp"
+        android:visibility="gone">
+
+        <!-- Premium Navigation/Header -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_alignParentStart="true">
+
+                <TextView
+                    android:id="@+id/tv_connected_device_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="HeyCyan Air"
+                    android:textColor="#FFFFFF"
+                    android:textSize="22sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Status: Connected"
+                    android:textColor="#00E5FF"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="2dp" />
+            </LinearLayout>
+
+            <!-- Custom Battery Badge -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/bg_glass_card"
+                android:backgroundTint="#0AFFFFFF"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="6dp"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/tv_battery_level"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="⚡ 85%"
+                    android:textColor="#00E5FF"
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <!-- Simulated Glass HUD Viewfinder -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/bg_glass_card">
+
+            <!-- Simulated viewfinder camera overlay -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="20dp">
+
+                <!-- Focus Crosshair -->
+                <View
+                    android:layout_width="40dp"
+                    android:layout_height="1dp"
+                    android:layout_centerInParent="true"
+                    android:background="#4000E5FF" />
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:background="#4000E5FF" />
+
+                <!-- Corner HUD Brackets -->
+                <!-- Top-Left -->
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="2dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:background="#00E5FF" />
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentStart="true"
+                    android:background="#00E5FF" />
+
+                <!-- Top-Right -->
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="2dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="#00E5FF" />
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="#00E5FF" />
+
+                <!-- Bottom-Left -->
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="2dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentStart="true"
+                    android:background="#00E5FF" />
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentStart="true"
+                    android:background="#00E5FF" />
+
+                <!-- Bottom-Right -->
+                <View
+                    android:layout_width="20dp"
+                    android:layout_height="2dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="#00E5FF" />
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="20dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:background="#00E5FF" />
+
+                <!-- Telemetry text overlay -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:text="CHIPCHIP HUD EYEWEAR ENGINE ACTIVE"
+                    android:textColor="#3300E5FF"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentStart="true"
+                    android:text="REC MODE: STILL IMAGE"
+                    android:textColor="#80FFFFFF"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:text="2K RES: 2048 x 1536"
+                    android:textColor="#80FFFFFF"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_hud_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="32dp"
+                    android:text="HUD: CAMERA AR READY"
+                    android:textColor="#8000E5FF"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:letterSpacing="0.05" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <!-- Shutter Controls -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginBottom="16dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_action_take_picture"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:background="@drawable/btn_shutter"
+                android:elevation="6dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TAP SHUTTER TO CAPTURE IMAGE"
+                android:textColor="#80FFFFFF"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"
+                android:layout_marginTop="12dp" />
+        </LinearLayout>
+
+        <!-- Disconnect Option -->
+        <Button
+            android:id="@+id/btn_action_disconnect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="#26FF3B30"
+            android:text="Disconnect"
+            android:textColor="#FF3B30"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:cornerRadius="8dp" />
+
+    </LinearLayout>
+
+    <!-- ========================================== -->
+    <!-- 3. FULL-SCREEN CAPTURED PHOTO STATE       -->
+    <!-- ========================================== -->
+    <RelativeLayout
+        android:id="@+id/layout_fullscreen_photo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <!-- Captured Image View -->
+        <ImageView
+            android:id="@+id/iv_captured_photo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:contentDescription="Captured glass photo" />
+
+        <!-- Top Transparent Control overlay -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:background="@drawable/bg_gradient_obsidian"
+            android:backgroundTint="#B30C0C0E"
+            android:layout_alignParentTop="true">
+
+            <ImageButton
+                android:id="@+id/btn_photo_back"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:background="?android:attr/selectableItemBackgroundBorderless"
+                android:src="@drawable/ic_navigate_before_black_44dp"
+                android:tint="#FFFFFF"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:contentDescription="Go back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GLASS CAPTURE"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:layout_centerInParent="true"
+                android:letterSpacing="0.1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SAVED TO GALLERY"
+                android:textColor="#00E5FF"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <!-- Bottom translucent control overlay -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="#B30C0C0E"
+            android:layout_alignParentBottom="true"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Captured using HeyCyan SDK Emulator"
+                android:textColor="#80FFFFFF"
+                android:textSize="11sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="EVALUATION COPY — CHIPCHIP RECRUITING 2026"
+                android:textColor="#B38B5CF6"
+                android:textSize="9sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"
+                android:layout_marginTop="4dp" />
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <!-- ========================================== -->
+    <!-- 4. CAPTURE LOADING OVERLAY                 -->
+    <!-- ========================================== -->
+    <RelativeLayout
+        android:id="@+id/layout_capture_loading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#CC0A0A0C"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:indeterminateTint="#00E5FF"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/tv_capture_loading_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="80dp"
+            android:text="Triggering glasses camera..."
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+</RelativeLayout>
